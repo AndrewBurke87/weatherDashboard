@@ -1,0 +1,31 @@
+#citySearch {
+  background-color: whitesmoke;
+  color: gray;
+}
+.searchBtn {
+  background-color: blue;
+  color: white;
+}
+#row1 {
+  border: gray;
+}
+#day1 {
+  background-color: rgb(81, 130, 167);
+}
+#day2 {
+  background-color: rgb(81, 130, 167);
+}
+#day3 {
+  background-color: rgb(81, 130, 167);
+}
+#day4 {
+  background-color: rgb(81, 130, 167);
+}
+#day5 {
+  background-color: rgb(81, 130, 167);
+}
+.col {
+  margin-right: 5px;
+  /* padding: 5px; */
+  border: white;
+}
