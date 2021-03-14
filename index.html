@@ -74,14 +74,16 @@
     <script type="text/javascript">
       var APIkey = "a5a4494391f290aba69b93f033d9a341";
       var cityName = "";
-      var searchList = localStorage.getItem("");
+      // var searchList = localStorage.getItem("");
       var index = 0;
+      // var searchHistory = localStorage.getItem("searchHistory") || [];
       $(".searchBtn").on("click", function () {
         cityName = $("input").val();
+        // $("input").text(searchHistory.unshift(cityName));
         var hour = moment().format("MMMM Do YYYY");
         const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=imperial&appid=${APIkey}`;
         const queryURL2 = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=${APIkey}`;
-        localStorage.setItem("lastSearch", cityName);
+        localStorage.setItem("lastSearched", cityName);
         $.ajax({
           url: queryURL,
           method: "GET",
@@ -111,13 +113,16 @@
           url: queryURL2,
           method: "GET",
         }).then(function (response) {
-          // var tempF = (response.main.temp - 273.15) * 1.8 + 32;
-          // console.log(response.list[0].main.temp);
-          // var iconCode = response.weather[0].icon;
-          // const iconURL =
-          //   "http://openweathermap.org/img/w/" + iconCode + ".png";
+          function iconURL(index) {
+            return (
+              "http://openweathermap.org/img/w/" +
+              response.list[index].weather[0].icon +
+              ".png"
+            );
+          }
+
           $("#day1").prepend(moment().add(1, "days").calendar());
-          $("#icon1").append(response.list[0].weather[0].icon);
+          $("#icon1").append("<img src=" + iconURL(0) + ">");
           // $("#wicon").attr("src", iconURL);
           $(".temp1").append("Temp: " + response.list[0].main.temp);
           $(".hum1").append(
@@ -125,30 +130,29 @@
           );
           console.log(response.list[0].weather.icon);
           $("#day2").prepend(moment().add(2, "days").calendar());
-          $("#icon2").append(response.list[1].weather[0].icon);
+          $("#icon2").append("<img src=" + iconURL(1) + ">");
           $(".temp2").append("Temp: " + response.list[1].main.temp);
           $(".hum2").append(
             "Humidity: " + response.list[1].main.humidity + "%"
           );
           $("#day3").prepend(moment().add(3, "days").calendar());
-          $("#icon3").append(response.list[2].weather[0].icon);
+          $("#icon3").append("<img src=" + iconURL(2) + ">");
           $(".temp3").append("Temp: " + response.list[2].main.temp);
           $(".hum3").append(
             "Humidity: " + response.list[2].main.humidity + "%"
           );
           $("#day4").prepend(moment().add(4, "days").calendar());
-          $("#icon4").append(response.list[3].weather[0].icon);
+          $("#icon4").append("<img src=" + iconURL(3) + ">");
           $(".temp4").append("Temp: " + response.list[3].main.temp);
           $(".hum4").append(
             "Humidity: " + response.list[3].main.humidity + "%"
           );
           $("#day5").prepend(moment().add(5, "days").calendar());
-          $("#icon5").append(response.list[4].weather[0].icon);
+          $("#icon5").append("<img src=" + iconURL(4) + ">");
           $(".temp5").append("Temp: " + response.list[4].main.temp);
           $(".hum5").append(
             "Humidity: " + response.list[4].main.humidity + "%"
           );
-
           console.log(queryURL2);
           console.log(response);
         });
